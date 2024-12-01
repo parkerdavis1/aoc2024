@@ -4,6 +4,12 @@ import { sumOf, unzip } from "@std/collections"
 // PART 1 --------------------------------------------------------------------
 const listInput = await Deno.readTextFile("input.txt")
 
+function parseIntArray(array: string[]) {
+  const parsed = array.map((string) => parseInt(string))
+  if (parsed.includes(NaN)) throw new Error("Could not parse all numbers")
+  return parsed
+}
+
 function splitInputToTwoLists(listInput: string) {
   const listPairs = listInput.split("\n").map((duple) => duple.split("   "))
 
