@@ -1,12 +1,12 @@
 {
-  "tasks": {
-    "dev": "deno run --watch --allow-read main.ts"
-  },
-  "imports": {
-    "@std/collections": "jsr:@std/collections@^1.0.9"
-  },
-  "fmt": {
-    "semiColons": false,
-    "indentWidth": 4
-  }
+    "tasks": {
+        "dev": "deno run --watch --allow-read main.ts"
+    },
+    "imports": {
+        "@std/collections": "jsr:@std/collections@^1.0.9"
+    },
+    "fmt": {
+        "semiColons": false,
+        "indentWidth": 4
+    }
 }

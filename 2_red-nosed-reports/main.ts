@@ -21,15 +21,10 @@ function isSafe(array: number[]) {
     const windows = slidingWindows(array, 2)
     const shouldGrow = isGrowing(windows[0])
 
-    const safeWindows = windows.map((window) => {
-        const growing = window[0] - window[1] < 0
-        if (isInRange(window) && shouldGrow === isGrowing(window)) {
-            return true
-        } else {
-            return false
-        }
+    const windowBools = windows.map((window) => {
+        return isInRange(window) && shouldGrow === isGrowing(window)
     })
-    return !safeWindows.includes(false)
+    return !windowBools.includes(false)
 }
 
 const safeLines = lines.map((line) => {
@@ -37,11 +32,12 @@ const safeLines = lines.map((line) => {
     return isSafe(numbers)
 })
 
-const [safe, unsafe] = partition(safeLines, (line) => line)
+const [safe, unsafe] = partition(safeLines, (bool) => bool)
 console.log("safe", safe.length)
 console.log("unsafe", unsafe.length)
 
 // PART 2 --------------------------------------------------
+
 function getAllPermutations(array: number[]) {
     const result = []
     for (let i = 0; i < array.length; i++) {
@@ -51,7 +47,9 @@ function getAllPermutations(array: number[]) {
 }
 
 function problemDampener(array: number[]) {
-    const permutations = getAllPermutations(array).map(permutation => isSafe(permutation))
+    const permutations = getAllPermutations(array).map((permutation) =>
+        isSafe(permutation)
+    )
     return permutations.includes(true)
 }
 
@@ -60,10 +58,10 @@ const safeLines2 = lines.map((line) => {
     if (isSafe(numbers)) {
         return true
     } else {
-      return problemDampener(numbers)
+        return problemDampener(numbers)
     }
 })
 
-const [safe2, unsafe2] = partition(safeLines2, (line) => line)
+const [safe2, unsafe2] = partition(safeLines2, (bool) => bool)
 console.log("safe2", safe2.length)
 console.log("unsafe2", unsafe2.length)
