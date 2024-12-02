@@ -27,12 +27,12 @@ function isSafe(array: number[]) {
     return !windowBools.includes(false)
 }
 
-const safeLines = lines.map((line) => {
+const lineIsSafeBools = lines.map((line) => {
     const numbers = line.split(" ").map((numString) => parseInt(numString))
     return isSafe(numbers)
 })
 
-const [safe, unsafe] = partition(safeLines, (bool) => bool)
+const [safe, unsafe] = partition(lineIsSafeBools, (bool) => bool)
 console.log("safe", safe.length)
 console.log("unsafe", unsafe.length)
 
@@ -53,7 +53,7 @@ function problemDampener(array: number[]) {
     return permutations.includes(true)
 }
 
-const safeLines2 = lines.map((line) => {
+const lineIsSafeWithDampenerBools = lines.map((line) => {
     const numbers = line.split(" ").map((numString) => parseInt(numString))
     if (isSafe(numbers)) {
         return true
@@ -62,6 +62,6 @@ const safeLines2 = lines.map((line) => {
     }
 })
 
-const [safe2, unsafe2] = partition(safeLines2, (bool) => bool)
+const [safe2, unsafe2] = partition(lineIsSafeWithDampenerBools, (bool) => bool)
 console.log("safe2", safe2.length)
 console.log("unsafe2", unsafe2.length)
