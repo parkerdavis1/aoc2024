@@ -9,17 +9,14 @@ let input = testing
 
 // CHECK 1: get all rows, read forwards and backwards
 const forwardsRows = input.split("\r\n")
-const reverseRows = forwardsRows.map((string) =>
-    string.split("").toReversed().join("")
-)
+const reverseRows = forwardsRows
+    .map((string) => string.split("").toReversed().join(""))
 
 // CHECK 2: get all columns, read forwards and backwards
-const forwardsColumns = transpose(forwardsRows).map((arr: string[]) =>
-    arr.join("")
-)
-const reverseColumns = forwardsColumns.map((string: string) =>
-    string.split("").toReversed().join("")
-)
+const forwardsColumns = transpose(forwardsRows)
+    .map((arr: string[]) => arr.join(""))
+const reverseColumns = forwardsColumns
+    .map((string: string) => string.split("").toReversed().join(""))
 
 // CHECK 3: get diagonals, read forwards and backwards
 function getDiagonals(matrix: string[][]) {
@@ -117,7 +114,6 @@ function getAllXs(matrix: string[][]) {
     const height = matrix.length
     const width = matrix[0].length
 
-    const xCount = (width - 2) * (height - 2)
     const xes = [] as string[]
 
     for (let y = 0; y < height - 2; y++) {
