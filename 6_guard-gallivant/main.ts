@@ -1,4 +1,6 @@
-const testing = false
+let frames: string[] = []
+
+const testing = true
 
 const input = testing
     ? await Deno.readTextFile("test.txt")
@@ -117,13 +119,14 @@ class Lab {
     }
 
     step() {
+        // for animation
+        const render = matrix.map((row) => row.join("")).join("\n")
+        frames.push(render)
+
         if (lastStep === false) {
-            console.log(matrix.map((row) => row.join("")).join("\n"))
-            console.log("\n\n")
-            console.log("taking step!")
             const nextStep = this.#getNextStep()
             if (nextStep === "#") {
-                console.log("turning!")
+                // console.log("turning!")
                 this.guard.turn()
                 this.#leaveTrace()
                 this.guard.walk()
@@ -135,7 +138,7 @@ class Lab {
                 this.#markNewPosition()
                 this.step()
             } else if (nextStep === null) {
-                console.log("Leaving lab!")
+                // console.log("Leaving lab!")
                 lastStep = true
                 this.#leaveTrace()
                 this.step()
@@ -177,11 +180,6 @@ console.log("\n-------START--------\n")
 const finalMatrix = lab.run()
 console.log("\n-------END--------\n")
 
-console.log(
-    "finalMatrix:\n\n",
-    finalMatrix.map((row) => row.join("")).join("\n"),
-)
-
 function countXs(matrix: string[][]) {
     const flatMatrix = matrix.flat()
     const count = flatMatrix.filter((char) => char === "X").length
@@ -190,5 +188,19 @@ function countXs(matrix: string[][]) {
 
 const count = countXs(finalMatrix)
 console.log("\n-----\nPart 1 count:", count)
+
+// ANIMATE!
+async function animate() {
+    const frameDuration = 100
+    for (const frame of frames) {
+        // clear terminal
+        console.log("\x1Bc")
+        // print frame
+        console.log(frame)
+        await new Promise((resolve) => setTimeout(resolve, frameDuration))
+    }
+}
+
+animate()
 
 // PART 2 --------------------------------------------------
